@@ -1,0 +1,11 @@
+<h1>New User? Sign up for an account!</h1>
+
+
+<form method="POST">
+	{{ form.hidden_tag() }}
+	{{ form.email.label }} {{ form.email() }}
+	{{ form.username.label }} {{ form.username() }}
+    {{ form.password.label }} {{ form.password() }}
+    {{ form.password2.label }} {{ form.password2() }}
+	{{ form.submit.label }}{{ form.submit() }}
+</form>

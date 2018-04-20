@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Searched Restuarants</h1>
+<h3>These are the restaurants you have previously searched before! Take a look at them again</h3>
+<br>
+
+{% for r in restuarants %}
+	<p>{{ r }}</p>
+{% endfor %}
+
+<br><br>
+
+{% block navigation %}
+<ul><i>
+    <li><a href="{{ url_for('base') }}">Home</a>
+    <li><a href="{{ url_for('restuarant_search') }}">Search a restuarant</a></li>
+    <li><a href="{{ url_for('restaurant_reviews') }}">Write a Review</a></li>
+    <li><a href="{{ url_for('all_reviews') }}">See all Restuarant Reviews</a></li>
+    <li><a href="{{ url_for('create_itinerary') }}">Create an Itinerary</a></li>
+    <li><a href="{{ url_for('itinerary') }}">Places to visit</a></li></li></i>
+</ul>
+<p>--------</p><br>
+{% endblock %}
+
+
+{% endblock %}

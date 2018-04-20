@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+<h1>My Itinerary</h1>
+<h3>These are separeted by location, and places I want to visit in each location!</h3>
+
+{% block navigation %}
+ {{ super() }}
+{% endblock %}
+
+{% block main_content %}
+
+<ul>
+{% for i in itinerary %}
+    <li><a href="http://localhost:5000/itinerary/{{ i.id }}">{{ i.name }}</a></li>
+{% endfor %}
+</ul>
+
+{% if not all_reviews %}
+	There are no saved reviews.
+{% endif %}
+
+{% endblock %}

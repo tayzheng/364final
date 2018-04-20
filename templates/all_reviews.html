@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+{% for r in all_reviews %}
+	<ul>
+		<li>Restaurant: {{ r[0] }}</li>
+		<li>Stars: {{ r[1] }}</li>
+		<li>Review: {{ r[2] }}</li>
+	</ul>
+{% end for %}
+</ul>
+
+{% block navigation %}
+<ul><i>
+    <li><a href="{{ url_for('base') }}">Home</a>
+    <li><a href="{{ url_for('restaurant_search') }}">Search a Restaurant</a></li>
+    <li><a href="{{ url_for('restaurant_reviews') }}">Write a Review</a></li>
+    <li><a href="{{ url_for('create_itinerary') }}">Create an Itinerary</a></li>
+    <li><a href="{{ url_for('itinerary') }}">Places to visit</a></li></li></i>
+</ul>
+<p>--------</p><br>
+
+{% if not itinerary %}
+	There are no saved bookmarks.
+{% endif %}
+
+{% endblock %}

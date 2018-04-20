@@ -1,0 +1,35 @@
+
+{% if current_user.is_authenticated %}
+    <a href="{{ url_for('logout') }}">Sign Out {{current_user.username}}</a>
+{% else %}
+    <a href="{{ url_for('login') }}">Sign In</a>
+{% endif %}
+<br>
+<br>
+
+{% block navigation %}
+<ul><i>
+    <li><a href="{{ url_for('base') }}">Home</a>
+    <li><a href="{{ url_for('restaurant_search') }}">Search a Restaurant</a></li>
+    <li><a href="{{ url_for('restaurant_review') }}">Write a Review</a></li>
+    <li><a href="{{ url_for('create_itinerary') }}">Create an Itinerary </a></li>
+    <li><a href="{{ url_for('all_reviews') }}">See all Restaurant Reviews</a></li>
+    <li><a href="{{ url_for('itinerary') }}">Places to visit</a></li></li></i>
+</ul>
+<p>--------</p><br>
+{% endblock %}
+
+{% block main_content %}
+<form method="POST">
+	{{ form.hidden_tag() }}
+	{{ form.search.label }} {{ form.search() }}
+	{{ form.submit() }}
+</form>
+
+<div>
+{% for message in get_flashed_messages() %}
+{{ message }}
+{% endfor %}
+</div>
+
+{% endblock %}
