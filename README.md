@@ -1,4 +1,22 @@
+Final 364 project
+
 This app is created for users to access information about a restaurant when they are looking for somewhere to eat. For future trips, they can save restaurants to a list for the different locations they want to go to. In these lists, will be saved the names of the restaurants they want to visit when they go on vacation to visit those locations. In addition, the users can leave their own thoughts and ratings about the restaurants they have been to. 
+
+-- installed yelp_api
+
+ROUTES
+
+http://localhost:5000/ --> base.html
+http://localhost:5000/login --> login.html
+http://localhost:5000/register --> register.html
+http://localhost:5000/restaurant_search --> restaurant_search.html
+http://localhost:5000/restaurant_review --> restaurant_review.html
+http://localhost:5000/searched_restaurants --> searched_restaurants.html
+http://localhost:5000/restaurant_data --> restaurant_data.html
+http://localhost:5000/all_reviews --> all_reviews.html
+http://localhost:5000/itinerary --> itinerary.html
+http://localhost:5000/404 --> 404.html
+http://localhost:5000/505 --> 500.html
 
 **Ensure that your SI364final.py file has all the setup (app.config values, import statements, code to run the app if that file is run, etc) necessary to run the Flask application, and the application runs correctly on http://localhost:5000 (and the other routes you set up). Your main file must be called SI364final.py, but of course you may include other files if you need.**
 
