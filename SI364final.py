@@ -327,7 +327,7 @@ def all_reviews():
 #users can create a list of restaurants to save based on different locations, etc.
 @app.route('/create_itinerary') 
 @login_required
-def itinerary():
+def create_itinerary():
 	form = restaurant_Itinerary_Form()
 	restaurants = restaurant.query.all()
 	choices = [(rest.id, rest.name) for rest in restaurants]
