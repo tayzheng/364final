@@ -14,7 +14,6 @@ http://localhost:5000/register --> register.html
 http://localhost:5000/restaurant_search --> restaurant_search.html
 http://localhost:5000/restaurant_review --> restaurant_review.html
 http://localhost:5000/searched_restaurants --> searched_restaurants.html
-http://localhost:5000/restaurant_data --> restaurant_data.html
 http://localhost:5000/all_reviews --> all_reviews.html
 http://localhost:5000/itinerary --> itinerary.html
 http://localhost:5000/404 --> 404.html
