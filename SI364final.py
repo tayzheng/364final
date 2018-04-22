@@ -1,32 +1,29 @@
 ## SI364 final project
 
-#######################
 ## IMPORT STATEMENTS ##
-#######################
 import os
-import requests
 import json
+import requests
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 from flask_script import Manager, Shell
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, FileField, PasswordField, BooleanField, SelectMultipleField, ValidationError, RadioField, SelectField
 from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user, UserMixin
+from flask_migrate import Migrate, MigrateCommand
 from werkzeug.security import generate_password_hash, check_password_hash
+
 import yelp_api
 
-###############
+
 ## APP SETUP ##
-###############
 app = Flask(__name__)
 app.debug = True
 app.use_reloader = True
 
-#######################
+
 ## APP CONFIGURATION ##
-#######################
 app.config['SECRET_KEY'] = 'hard to guess string from si364'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:siyi1126@localhost/SI364projectplantayzheng'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
@@ -36,9 +33,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 client_id = yelp_api.client_id
 api_key = yelp_api.api_key
 
-####################
-## MORE APP SETUP ##
-####################
+######
+
 manager = Manager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -52,9 +48,8 @@ login_manager.login_view = 'login'
 
 
 
-######################
+
 ## HELPER FUNCTIONS ####################################################################
-######################
 
 def get_or_create_restaurant(name, location):
     restaurants = rRestaurant.query.filter_by(name = name).first()
@@ -90,9 +85,8 @@ def get_or_create_itinerary(name, user, restaurant_list =[]):
 		db.session.add(itinerary)
 		db.session.commit()
 
-############
-## MODELS ##
-############
+
+## MODELS ###############################################################################
 
 ## Association Tables ##
 
@@ -156,9 +150,8 @@ class Itinerary(db.Model):
 	user = db.Column(db.Integer, db.ForeignKey('users.id'))
 	restaurants = db.relationship('restaurant', secondary = bookmark, backref = db.backref('itinerary', lazy = 'dynamic'), lazy = 'dynamic')
 
-###########
-## FORMS ##
-###########
+
+## FORMS ######################################################################3
 
 #from HW4#
 class CreateAccountForm(FlaskForm):
@@ -209,7 +202,7 @@ class ReviewForm(FlaskForm):
 		if len(field.data) > 1:
 			raise ValidationError('Please rate out of full numbers, no decimals!')
 
-#CRUD
+#CRUD (HW5)
 class UpdateButtonForm(FlaskForm):
 	update = SubmitField('Update')
 
@@ -217,9 +210,7 @@ class DeleteButtonForm(FlaskForm):
 	delete = SubmitField('Delete')
 
 
-####################
 ## VIEW FUNCTIONS ##############################################################################
-####################
 
  #CreateAccount page to create an account. 
 #When the form is submitted, a user is added to the database and users should be redirected to the login page.
@@ -230,7 +221,7 @@ def register():
 		user = User(email=form.email.data,username=form.username.data,password=form.password.data)
 		db.session.add(user)
 		db.session.commit()
-		flash('You have successfully created an account.')
+		flash('Account successfully created!')
 		return redirect(url_for('login'))
 	return render_template('register.html',form=form)
 
@@ -244,7 +235,7 @@ def login():
 		if user is not None and user.verify_password(form.password.data):
 			login_user(user, form.remember_me.data)
 			return redirect(request.args.get('next') or url_for('base'))
-		flash('Invalid username or password.')
+		flash('Invalid username or password. Please try again.')
 	return render_template('login.html',form=form)
 
 #This allows the user to logout, and will return them to the home page
@@ -252,7 +243,7 @@ def login():
 @login_required
 def logout():
 	logout_user()
-	flash('You have been logged out')
+	flash('You are now logged out')
 	return redirect(url_for('base'))
 
 
@@ -348,17 +339,15 @@ def itinerary():
     itinerarys = Itinerary.query.filter_by(user = user.id).all()
     return render_template('itinerary.html', itinerarys = itinerarys)
 
-@app.route('/delete/<lst>', methods=["GET", "POST"])
-def delete(lst):
-	delete_lst = Itinerary.query.filter_by(name = name).first()
-	if delete_lst:
-		db.session.delete(delete_lst)
-		flash('Deleted list: {}'.format(delete_lst.name))
+@app.route('/delete/<list>', methods=["GET", "POST"])
+def delete(list):
+	delete_list = Itinerary.query.filter_by(name = name).first()
+	if delete_list:
+		db.session.delete(delete_list)
+		flash('List {} has been deleted!'.format(delete_list.name))
 	return redirect(url_for('itinerary'))
 
-#####################
 ## ERROR FUNCTIONS ######################################################################
-#####################
 
 @app.errorhandler(404)
 def page_not_found(e):
